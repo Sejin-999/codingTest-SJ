@@ -4,53 +4,50 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.util.Arrays;
 
 public class Main {
-
-    private static void sum_arr_3() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        int cnt = 0; //res 값
-        int N = Integer.parseInt(stringTokenizer.nextToken());
-        int M = Integer.parseInt(stringTokenizer.nextToken());
+    // 좋은 수 찾기 - 1253
+    private static void two_pointer_03() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         int arrN[] = new int[N];
-        int arrC[] = new int[M];
+        int cnt = 0;
 
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
         for (int i = 0; i < N; i++) {
-            arrN[i] = Integer.parseInt(stringTokenizer.nextToken());
+            arrN[i] = Integer.parseInt(st.nextToken());
         }
 
-        //합배열 만들기
-        int arrS[] = new int[N+1];
-        arrS[0] = arrN[0];
+        Arrays.sort(arrN); // 정렬 추가
 
-        for (int i = 1; i < N; i++) {
-            arrS[i] = arrN[i] + arrS[i - 1];
-        }
+        for (int k = 0; k < N; k++) {
+            int findValue = arrN[k];
+            int i = 0;
+            int j = N - 1;
 
-        //나누어 떨어지는 경우 찾기
-        for (int i = 0; i < N; i++) {
-            int c = arrS[i] % M;
+            while (i < j) {
+                int sum = arrN[i] + arrN[j];
 
-            if (c == 0) {
-                cnt++;
-            }
-
-            arrC[c]++;
-
-        }
-        for (int i = 0; i < M; i++) {
-            if (arrC[i] > 1) {
-                //경우가 2개 이상인 경우만..
-                //경우의 수 구하는 공식..
-                /**
-                 * 이때 사용된 공식은 조합(combination)의 공식
-                 * 공식: nC2 = n! / (2! * (n-2)!)
-                 * 여기서 n!는 팩토리얼이며, n! = n * (n-1) * (n-2) * ... * 1 입니다.
-                 * 2!는 2 * 1로 계산됩니다. 따라서 nC2는 n(n-1)/2 가 됩니다
-                 */
-                cnt = cnt + (arrC[i] * (arrC[i] - 1) / 2);
+                if (sum == findValue) {
+                    // 찾은 경우 체크
+                    if (i != k && j != k) {
+                        // 동일하지 않은 경우만 체크해야 함
+                        ++cnt;
+                        break;
+                    }else if(i == k){
+                        ++i;
+                    }else{
+                        // j==k
+                        --j;
+                    }
+                } else if (sum < findValue) {
+                    i++;
+                } else {
+                    // sum > findValue
+                    j--;
+                }
             }
         }
 
@@ -58,7 +55,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        sum_arr_3();
+        two_pointer_03();
     }
-
 }
