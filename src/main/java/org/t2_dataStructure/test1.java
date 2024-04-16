@@ -35,46 +35,64 @@ public class test1 {
     }
 
     //평균 구하기 - 1546
-    private static void avgNumber_1(){
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int arr[] = new int[n];
+    private static void avgNumber_1() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        int max = 0;
+        int [] arr= new int[n];
+        double sum = 0;
         for(int i=0; i<n; i++){
-            int an = sc.nextInt();
-            arr[i] = an;
+            int t = Integer.parseInt(st.nextToken());
+            if(max < t){
+                max = t;
+            }
+            arr[i] = t;
+
         }
 
-        long sum=0;
-        long max=0;
-        for(int i=0; i<n; i++){
-            if(arr[i] > max){ max = arr[i];}
-            sum += arr[i];
+        for(int i =0; i<n; i++){
+            double tt = ((float)arr[i])/max*100;
+            System.out.println(tt);
+            sum += tt;
         }
 
-        System.out.println(sum *100.0 /max/n);
+        System.out.println(sum/n);
     }
    // 구간 합 구하기 - 11659
     private static void sum_arr_1() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st= new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int [] ArrA = new int[n+1];
+        int [] ArrN = new int[n+1];
 
-        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        int N = Integer.parseInt(stringTokenizer.nextToken());
-        int M = Integer.parseInt(stringTokenizer.nextToken());
-        Long[] S = new Long[N + 1];
-
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        S[0] = 0L; // 초기값 설정
-        for (int i = 1; i <= N; i++) {
-            // 합배열 만들기
-            S[i] = S[i-1] + Integer.parseInt(stringTokenizer.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for(int i=1; i<n+1; i++){
+            ArrA[i] = Integer.parseInt(st.nextToken());
         }
-        for (int q = 0; q < M; q++) {
-            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            int i = Integer.parseInt(stringTokenizer.nextToken());
-            int j = Integer.parseInt(stringTokenizer.nextToken());
-            System.out.println(S[j] - S[i - 1]);
+        ArrN[1] = ArrA[1];
+        for(int i=1; i<n+1; i++){
+            if(i>1){
+                ArrN[i] = ArrN[i-1]+ArrA[i];
+            }
         }
 
+        int x , y= 0;
+        for(int i=0; i<m; i++){
+            st = new StringTokenizer(br.readLine());
+            x= Integer.parseInt(st.nextToken());
+            y= Integer.parseInt(st.nextToken());
+            if(x==y){
+                System.out.println(ArrA[x]);
+            }else{
+                System.out.println(ArrN[y]-ArrN[x-1]);
+            }
+
+        }
     }
     //구간합 구하기 2 - 11660
     private static void sum_arr_2() throws IOException {
