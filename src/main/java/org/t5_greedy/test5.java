@@ -3,9 +3,13 @@ package org.t5_greedy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class Main {
+public class test5 {
+
     // 백준11047
     private static  void greedy_05() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,13 +18,13 @@ public class Main {
         int res=0;
         arrN = text.split("-");
         for(int i=0; i< arrN.length; i++){
-            int temp = Sum(arrN[i]);
-            if(i==0){
-                res+=temp; //처음값
-            }
-            else{
-                res-=temp;
-            }
+           int temp = Sum(arrN[i]);
+           if(i==0){
+               res+=temp; //처음값
+           }
+           else{
+               res-=temp;
+           }
         }
         System.out.println(res);
     }
