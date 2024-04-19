@@ -3,8 +3,8 @@ package org.t5_integer;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main {
-
+//백준1850
+public class test6 {
     private static  void integer_06() throws IOException {
         //최대공약수 구하기 - > mod연산
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
